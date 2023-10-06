@@ -1,4 +1,4 @@
-package de.workshops.bookshelf;
+package de.workshops.bookshelf.book;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
