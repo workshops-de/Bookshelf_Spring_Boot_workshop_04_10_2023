@@ -39,6 +39,12 @@ class BookService {
                 .toList();
     }
 
+    public Book createBook(Book book) {
+        books.add(book);
+
+        return book;
+    }
+
     private boolean hasIsbn(Book book, String isbn) {
         return book.getIsbn().equals(isbn);
     }

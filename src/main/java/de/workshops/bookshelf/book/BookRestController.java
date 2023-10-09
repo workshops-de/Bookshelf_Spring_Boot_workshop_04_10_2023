@@ -47,6 +47,11 @@ public class BookRestController {
         return bookService.searchBooks(request);
     }
 
+    @PostMapping
+    public Book createBook(@RequestBody Book book) {
+        return bookService.createBook(book);
+    }
+
     @ExceptionHandler(BookNotFoundException.class)
     private ProblemDetail error(BookNotFoundException ex) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
