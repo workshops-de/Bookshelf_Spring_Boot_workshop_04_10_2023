@@ -1,5 +1,6 @@
 package de.workshops.bookshelf.book;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -110,8 +111,11 @@ class BookRestControllerIntegrationTest {
         .andExpect(MockMvcResultMatchers.status().isOk())
         .andReturn();
     String jsonPayload = mvcResult.getResponse().getContentAsString();
-
     Book book = objectMapper.readValue(jsonPayload, Book.class);
-    assertEquals(expectedBook, book);
+
+    assertThat(book)
+        .usingRecursiveComparison()
+        .ignoringFields("id")
+        .isEqualTo(expectedBook);
   }
 }

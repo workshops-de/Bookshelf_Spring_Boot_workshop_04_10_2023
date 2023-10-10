@@ -10,7 +10,7 @@ import org.springframework.test.context.junit.jupiter.EnabledIf;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class EnvironmentTest {
 
-  @Value("${server.port}")
+  @Value("${server.port:8080}")
   private int port;
 
   @Test
