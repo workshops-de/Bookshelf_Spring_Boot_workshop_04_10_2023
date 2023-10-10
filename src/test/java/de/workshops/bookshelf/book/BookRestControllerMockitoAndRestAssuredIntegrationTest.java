@@ -15,28 +15,28 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 @AutoConfigureMockMvc
 class BookRestControllerMockitoAndRestAssuredIntegrationTest {
 
-    @Autowired
-    private BookRestController bookRestController;
+  @Autowired
+  private BookRestController bookRestController;
 
-    @MockBean
-    private BookService bookService;
+  @MockBean
+  private BookService bookService;
 
-    @Test
-    void testWithMockitoAndRestAssuredMockMvc() {
-        Book book = new Book();
-        book.setAuthor("Test");
+  @Test
+  void testWithMockitoAndRestAssuredMockMvc() {
+    Book book = new Book();
+    book.setAuthor("Test");
 
-        Mockito.when(bookService.getAllBooks()).thenReturn(Collections.singletonList(book));
+    Mockito.when(bookService.getAllBooks()).thenReturn(Collections.singletonList(book));
 
-        RestAssuredMockMvc.standaloneSetup(bookRestController);
-        RestAssuredMockMvc.
-            given()
-                .log().all().
-            when()
-                .get("/book").
-            then()
-                .log().all()
-                .statusCode(200)
-                .body("author[0]", equalTo("Test"));
-    }
+    RestAssuredMockMvc.standaloneSetup(bookRestController);
+    RestAssuredMockMvc.
+        given()
+        .log().all().
+        when()
+        .get("/book").
+        then()
+        .log().all()
+        .statusCode(200)
+        .body("author[0]", equalTo("Test"));
+  }
 }

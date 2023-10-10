@@ -14,17 +14,17 @@ import org.springframework.test.util.ReflectionTestUtils;
 @ExtendWith(MockitoExtension.class)
 class BookRestControllerMockitoReflectionTestUtilsTest {
 
-    @Mock
-    private BookService bookService;
+  @Mock
+  private BookService bookService;
 
-    @InjectMocks
-    private BookRestController bookRestController;
+  @InjectMocks
+  private BookRestController bookRestController;
 
-    @Test
-    void getAllBooks() {
-        ReflectionTestUtils.setField(bookService, "books", Collections.emptyList());
+  @Test
+  void getAllBooks() {
+    ReflectionTestUtils.setField(bookService, "books", Collections.emptyList());
 
-        assertNotNull(bookRestController.getAllBooks());
-        assertEquals(0, bookRestController.getAllBooks().size());
-    }
+    assertNotNull(bookRestController.getAllBooks());
+    assertEquals(0, bookRestController.getAllBooks().size());
+  }
 }

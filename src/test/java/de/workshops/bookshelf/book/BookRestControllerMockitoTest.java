@@ -13,17 +13,17 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 @SpringBootTest
 class BookRestControllerMockitoTest {
 
-    @Autowired
-    private BookRestController bookRestController;
+  @Autowired
+  private BookRestController bookRestController;
 
-    @MockBean
-    private BookService bookService;
+  @MockBean
+  private BookService bookService;
 
-    @Test
-    void getAllBooks() {
-        Mockito.when(bookService.getAllBooks()).thenReturn(Collections.emptyList());
+  @Test
+  void getAllBooks() {
+    Mockito.when(bookService.getAllBooks()).thenReturn(Collections.emptyList());
 
-        assertNotNull(bookRestController.getAllBooks());
-        assertEquals(0, bookRestController.getAllBooks().size());
-    }
+    assertNotNull(bookRestController.getAllBooks());
+    assertEquals(0, bookRestController.getAllBooks().size());
+  }
 }

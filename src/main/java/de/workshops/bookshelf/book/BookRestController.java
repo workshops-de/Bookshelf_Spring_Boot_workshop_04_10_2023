@@ -25,40 +25,42 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 public class BookRestController {
 
-    private final BookService bookService;
+  private final BookService bookService;
 
-    @GetMapping
-    List<Book> getAllBooks() {
-        return bookService.getAllBooks();
-    }
+  @GetMapping
+  List<Book> getAllBooks() {
+    return bookService.getAllBooks();
+  }
 
-    @GetMapping("/{isbn}")
-    Book getSingleBook(@PathVariable String isbn) throws BookNotFoundException {
-        return bookService.searchBookByIsbn(isbn);
-    }
+  @GetMapping("/{isbn}")
+  Book getSingleBook(@PathVariable String isbn) throws BookNotFoundException {
+    return bookService.searchBookByIsbn(isbn);
+  }
 
-    @GetMapping(params = "author")
-    Book searchBookByAuthor(@RequestParam @NotBlank @Size(min = 3) String author) throws BookNotFoundException {
-        return bookService.searchBookByAuthor(author);
-    }
+  @GetMapping(params = "author")
+  Book searchBookByAuthor(@RequestParam @NotBlank @Size(min = 3) String author)
+      throws BookNotFoundException {
+    return bookService.searchBookByAuthor(author);
+  }
 
-    @PostMapping("/search")
-    List<Book> searchBooks(@RequestBody @Valid BookSearchRequest request) {
-        return bookService.searchBooks(request);
-    }
+  @PostMapping("/search")
+  List<Book> searchBooks(@RequestBody @Valid BookSearchRequest request) {
+    return bookService.searchBooks(request);
+  }
 
-    @PostMapping
-    public Book createBook(@RequestBody Book book) {
-        return bookService.createBook(book);
-    }
+  @PostMapping
+  public Book createBook(@RequestBody Book book) {
+    return bookService.createBook(book);
+  }
 
-    @ExceptionHandler(BookNotFoundException.class)
-    private ProblemDetail error(BookNotFoundException ex) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
-        problemDetail.setTitle("Book not found");
-        problemDetail.setType(URI.create("http://localhost:8080/book_exception.html"));
-        problemDetail.setProperty("timestamp", Instant.now());
+  @ExceptionHandler(BookNotFoundException.class)
+  private ProblemDetail error(BookNotFoundException ex) {
+    ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND,
+        ex.getMessage());
+    problemDetail.setTitle("Book not found");
+    problemDetail.setType(URI.create("http://localhost:8080/book_exception.html"));
+    problemDetail.setProperty("timestamp", Instant.now());
 
-        return problemDetail;
-    }
+    return problemDetail;
+  }
 }
