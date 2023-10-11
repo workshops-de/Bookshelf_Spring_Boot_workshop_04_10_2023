@@ -66,6 +66,7 @@ class BookRestControllerIntegrationTest {
   }
 
   @Test
+  @WithMockUser
   void testWithRestAssuredMockMvc() {
     RestAssuredMockMvc.standaloneSetup(
         MockMvcBuilders
@@ -88,6 +89,7 @@ class BookRestControllerIntegrationTest {
     RestAssured.port = port;
     RestAssured.
         given()
+        .auth().basic("dbUser", "workshops")
         .log().all().
         when()
         .get("/book").
