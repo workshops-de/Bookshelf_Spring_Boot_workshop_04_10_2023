@@ -9,7 +9,10 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,8 +52,16 @@ public class BookRestController {
   }
 
   @PostMapping
+  @PreAuthorize("hasRole('ADMIN')")
   public Book createBook(@RequestBody Book book) {
     return bookService.createBook(book);
+  }
+
+  @DeleteMapping("/{isbn}")
+  public ResponseEntity<String> deleteBook(@PathVariable String isbn) throws BookNotFoundException {
+    bookService.deleteBook(bookService.searchBookByIsbn(isbn));
+
+    return ResponseEntity.ok("OK");
   }
 
   @ExceptionHandler(BookNotFoundException.class)

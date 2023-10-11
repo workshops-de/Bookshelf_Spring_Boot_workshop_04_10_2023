@@ -26,3 +26,10 @@ spring:
       # The default value is 'embedded', which only works for in-memory databases.
       # Since we're using a 'non-embedded' database here, we now need to set this to 'always'.
       mode: always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        
