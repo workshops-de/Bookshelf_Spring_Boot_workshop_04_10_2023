@@ -134,5 +134,12 @@ class BookRestControllerIntegrationTest {
         .usingRecursiveComparison()
         .ignoringFields("id")
         .isEqualTo(expectedBook);
+
+    // Restore previous database state by deleting the book again.
+    mockMvc.perform(MockMvcRequestBuilders.delete("/book/{isbn}", isbn)
+            .contentType(MediaType.APPLICATION_JSON)
+            .with(csrf()))
+        .andDo(MockMvcResultHandlers.print())
+        .andExpect(MockMvcResultMatchers.status().isOk());
   }
 }
